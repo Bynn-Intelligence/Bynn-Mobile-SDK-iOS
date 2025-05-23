@@ -219,5 +219,5 @@ Configure your webhooks in the Bynn Dashboard:
 ## Support
 
 For questions or assistance, please contact us at:
-- Email: support@bynn.com
-- Website: [https://bynn.com/support](https://bynn.com/support)
+- Email: hello@bynn.com
+- Website: [https://www.bynn.com](https://www.bynn.com)
