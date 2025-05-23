@@ -1,33 +1,59 @@
-# README #
+# BynnIDVerification SDK for iOS
 
-# BynnIDVerification
+## Introduction
 
-## Overview
+BynnIDVerification is a powerful SDK that enables seamless identity verification in your iOS applications. With our easy-to-integrate solution, you can quickly implement secure KYC (Know Your Customer) and age verification processes.
 
-BynnIDVerification is a Swift framework that provides identity verification functionality for iOS applications. Bynn allows simple integration of identity verification features into your iOS apps.
-
-## Screenshots
-
-### Initial View
 ![Verification Flow](screenshots/intro.png)
 
-### Document Scan
-![Document Scan](screenshots/id.png)
+## Requirements
 
-### Liveness Info
-![Liveness Detection](screenshots/liveness-info.png)
+- iOS 14.0+
+- Swift 5.5+
+- Xcode 13.0+
+
+## Resources
+
+- [API Documentation](https://github.com/Bynn-Intelligence/Bynn-Mobile-SDK-iOS)
+- [Demo Application](https://github.com/Bynn-Intelligence/Bynn-Mobile-SDK-iOS)
 
 ## Installation
 
 ### Swift Package Manager
+
+Add the following URL to your Swift Package dependencies:
+
+```
 https://github.com/Bynn-Intelligence/Bynn-Mobile-SDK-iOS.git
+```
 
-## Key Components
+Or add the dependency to your `Package.swift`:
 
-**BynnVerification**  
-The main entry point for the SDK. This class provides the interface to create and configure verification flows.
+```swift
+dependencies: [
+    .package(url: "https://github.com/Bynn-Intelligence/Bynn-Mobile-SDK-iOS.git", from: "1.0.0")
+]
+```
 
-## Usage
+## Key Features
+
+- **Document Verification**: Capture and verify government-issued IDs
+- **Liveness Detection**: Prevent fraud with advanced liveness checks
+- **Age Verification**: Specialized flows for age verification requirements
+- **Customizable UI**: Adapt the verification flow to match your app's design
+
+## Integration
+
+> **Important**: The `uniqueId` parameter should be a non-PII identifier (like a UUID) that you can use to identify the user in your system. This same identifier will be included in webhook responses to help you match verification results with your users.
+
+### Permissions
+
+Add the following to your `Info.plist`:
+
+```xml
+<key>NSCameraUsageDescription</key>
+<string>Camera access is required for document and selfie capture during verification</string>
+```
 
 ### Basic Implementation
 
@@ -69,13 +95,13 @@ struct VerificationView: View {
     func loadVerificationFlow() async {
         let view = await BynnVerification.shared.createVerificationFlow(
             apiKey: "YOUR_API_KEY",
-            kycLevel: "KYC_level",
+            kycLevel: "ACB123",
             firstName: "John",
             lastName: "Doe",
-            uniqueId: "user-123",
+            uniqueId: "550e8400-e29b-41d4-a716-446655440000", // Non-PII identifier
             phoneNumber: "+1234567890",
             email: "john.doe@example.com",
-            ageVerification: false
+            ageVerification: false,
             showCompletionView: true,
             onVerificationCompleted: {
                 print("Verification completed successfully")
@@ -93,36 +119,38 @@ struct VerificationView: View {
 }
 ```
 
-## Configuration Options
+## Verification Flow
 
-### KYC Levels
+Our SDK provides a streamlined verification experience for your users:
 
-BynnIDVerification supports different KYC levels found in your Bynn account.
+### 1. Introduction Screen
+![Introduction](screenshots/intro.png)
 
-### Age Verification
+### 2. Document Scanning
+![Document Scan](screenshots/id.png)
 
-BynnIDVerification has a specialized flow for age verification. To initiate the age verification flow, simply pass ageVerification: true. The UniqueId parameter must contain an id for age verification:
+### 3. Liveness Check
+![Liveness Detection](screenshots/liveness-info.png)
+
+## Age Verification
+
+To implement our specialized age verification flow:
 
 ```swift
 let ageVerificationView = await BynnVerification.shared.createVerificationFlow(
     apiKey: "YOUR_API_KEY",
-    kycLevel: "STANDARD",
-    uniqueId: "user-123",
+    kycLevel: "ACB123",
+    uniqueId: "550e8400-e29b-41d4-a716-446655440000", // Non-PII identifier
     ageVerification: true,
     showCompletionView: true
 )
 ```
 
-### Age Verification Info
 ![Age Verification](screenshots/age-verification.png)
 
-## Error Handling
+## Configuration Options
 
-BynnIDVerification provides error handling through the onVerificationError callback.
-
-## API Reference
-
-### BynnVerification
+### API Reference
 
 ```swift
 public func createVerificationFlow(
@@ -141,10 +169,55 @@ public func createVerificationFlow(
 ) async -> AnyView
 ```
 
-## Version History
+### Parameters
 
-- 1.0.0: Initial release
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| apiKey | String | Your Bynn API key |
+| kycLevel | String | Verification level from your Bynn dashboard (available at https://dashboard.bynn.com/setting/product/kyc) |
+| firstName | String? | User's first name |
+| lastName | String? | User's last name |
+| uniqueId | String? | Unique identifier for the user (non-PII, such as UUID) that will be included in webhooks |
+| phoneNumber | String? | User's phone number |
+| email | String? | User's email address |
+| ageVerification | Bool | Enable specialized age verification flow |
+| showCompletionView | Bool | Show completion screen after verification |
+
+## Error Handling
+
+The SDK provides comprehensive error handling through the `onVerificationError` callback:
+
+```swift
+onVerificationError: { errorMessage in
+    // Handle verification errors
+    print("Verification error: \(errorMessage)")
+}
+```
+
+## Webhooks
+
+BynnIDVerification supports webhooks to notify your backend systems about verification results. Webhooks include the `uniqueId` you provided during verification, allowing you to match results to specific users.
+
+### Configuration
+
+Configure your webhooks in the Bynn Dashboard:
+- URL: [https://dashboard.bynn.com/setting/webhook](https://dashboard.bynn.com/setting/webhook)
+
+### Event Types
+
+- `decision.approved`: Triggered when a verification is approved
+- `decision.rejected`: Triggered when a verification is rejected
+- `decision.challenge`: Triggered when additional verification is required
+- `aml.screening.match`: Triggered when there's a match in AML screening
+
+## Versions
+
+| Version | Changes |
+|---------|---------|
+| 1.0.0   | Initial release |
 
 ## Support
 
-For questions or issues, please contact TEST
+For questions or assistance, please contact us at:
+- Email: support@bynn.com
+- Website: [https://bynn.com/support](https://bynn.com/support)
