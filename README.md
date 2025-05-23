@@ -94,8 +94,8 @@ struct VerificationView: View {
     
     func loadVerificationFlow() async {
         let view = await BynnVerification.shared.createVerificationFlow(
-            apiKey: "YOUR_API_KEY",
-            kycLevel: "ACB123",
+            apiKey: "YOUR_PUBLIC_API_KEY",
+            kycLevel: "YOUR_KYC_LEVEL_ID",
             firstName: "John",
             lastName: "Doe",
             uniqueId: "550e8400-e29b-41d4-a716-446655440000", // Non-PII identifier
