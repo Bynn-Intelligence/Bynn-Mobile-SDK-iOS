@@ -138,7 +138,7 @@ To implement our specialized age verification flow:
 
 ```swift
 let ageVerificationView = await BynnVerification.shared.createVerificationFlow(
-    apiKey: "YOUR_API_KEY",
+    apiKey: "YOUR_PUBLIC_API_KEY",
     kycLevel: "YOUR_KYC_LEVEL_ID",
     uniqueId: "550e8400-e29b-41d4-a716-446655440000", // Non-PII identifier
     ageVerification: true,
@@ -173,7 +173,7 @@ public func createVerificationFlow(
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| apiKey | String | Your Bynn API key |
+| apiKey | String | Your Bynn API key (available at https://dashboard.bynn.com/integration)|
 | kycLevel | String | Verification level from your Bynn dashboard (available at https://dashboard.bynn.com/setting/product/kyc) |
 | firstName | String? | User's first name |
 | lastName | String? | User's last name |
