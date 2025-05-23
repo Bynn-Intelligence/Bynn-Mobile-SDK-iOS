@@ -207,7 +207,7 @@ Configure your webhooks in the Bynn Dashboard:
 
 - `decision.approved`: Triggered when a verification is approved
 - `decision.rejected`: Triggered when a verification is rejected
-- `decision.challenge`: Triggered when additional verification is required
+- `decision.challenge`: Triggered when a manual decision is required by your organization
 - `aml.screening.match`: Triggered when there's a match in AML screening
 
 
