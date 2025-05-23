@@ -139,7 +139,7 @@ To implement our specialized age verification flow:
 ```swift
 let ageVerificationView = await BynnVerification.shared.createVerificationFlow(
     apiKey: "YOUR_API_KEY",
-    kycLevel: "ACB123",
+    kycLevel: "YOUR_KYC_LEVEL_ID",
     uniqueId: "550e8400-e29b-41d4-a716-446655440000", // Non-PII identifier
     ageVerification: true,
     showCompletionView: true
