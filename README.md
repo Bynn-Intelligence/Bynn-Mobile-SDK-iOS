@@ -173,7 +173,7 @@ public func createVerificationFlow(
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| apiKey | String | Your Bynn API key (available at https://dashboard.bynn.com/integration)|
+| apiKey | String | Your Bynn PUBLIC API key (available at https://dashboard.bynn.com/integration)|
 | kycLevel | String | Verification level from your Bynn dashboard (available at https://dashboard.bynn.com/setting/product/kyc) |
 | firstName | String? | User's first name |
 | lastName | String? | User's last name |
