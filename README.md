@@ -210,11 +210,7 @@ Configure your webhooks in the Bynn Dashboard:
 - `decision.challenge`: Triggered when additional verification is required
 - `aml.screening.match`: Triggered when there's a match in AML screening
 
-## Versions
 
-| Version | Changes |
-|---------|---------|
-| 1.0.0   | Initial release |
 
 ## Support
 
